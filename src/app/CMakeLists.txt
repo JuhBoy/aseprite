@@ -487,6 +487,7 @@ add_library(app-lib
   cmd/with_slice.cpp
   cmd/with_sprite.cpp
   cmd/with_tag.cpp
+  cmd/set_tag_loop.cpp
   cmd_sequence.cpp
   cmd_transaction.cpp
   color.cpp

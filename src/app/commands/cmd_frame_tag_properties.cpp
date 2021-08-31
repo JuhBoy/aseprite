@@ -10,6 +10,7 @@
 #endif
 
 #include "app/cmd/set_tag_anidir.h"
+#include "app/cmd/set_tag_loop.h"
 #include "app/cmd/set_tag_color.h"
 #include "app/cmd/set_tag_name.h"
 #include "app/cmd/set_tag_range.h"
@@ -108,6 +109,11 @@ void FrameTagPropertiesCommand::onExecute(Context* context)
   doc::AniDir anidir = window.aniDirValue();
   if (tag->aniDir() != anidir)
     tx(new cmd::SetTagAniDir(tag, anidir));
+
+  bool isLoop = window.loopValue();
+  if (tag->isLoop() != isLoop) {
+      tx(new cmd::SetTagLoop(tag, isLoop));
+  }
 
   tx.commit();
 }

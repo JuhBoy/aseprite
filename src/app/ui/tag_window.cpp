@@ -32,6 +32,7 @@ TagWindow::TagWindow(const doc::Sprite* sprite, const doc::Tag* tag)
       doc::rgba_getr(tag->color()),
       doc::rgba_getg(tag->color()),
       doc::rgba_getb(tag->color())));
+  loop()->setSelected(tag->isLoop());
 
   fill_anidir_combobox(anidir(), tag->aniDir());
 }
@@ -67,6 +68,10 @@ doc::color_t TagWindow::colorValue()
 doc::AniDir TagWindow::aniDirValue()
 {
   return (doc::AniDir)anidir()->getSelectedItemIndex();
+}
+
+bool TagWindow::loopValue() {
+    return loop()->isSelected();
 }
 
 } // namespace app

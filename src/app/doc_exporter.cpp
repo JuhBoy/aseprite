@@ -186,6 +186,7 @@ public:
   const gfx::Rect& trimmedBounds() const { return m_trimmedBounds; }
   const gfx::Rect& inTextureBounds() const { return *m_inTextureBounds; }
   const SharedRectPtr& sharedBounds() const { return m_inTextureBounds; }
+  const bool isLoopable() const { return m_loopable; }
 
   gfx::Size requiredSize() const {
     // if extrude option is enabled, an extra pixel is needed for each side
@@ -299,6 +300,7 @@ private:
   std::string m_filename;
   int m_innerPadding;
   bool m_extrude;
+  bool m_loopable;
   bool m_isLinked;
   bool m_isDuplicated;
   gfx::Size m_originalSize;
@@ -1291,7 +1293,8 @@ void DocExporter::createDataFile(const Samples& samples,
        << "    \"sourceSize\": { "
        << "\"w\": " << srcSize.w << ", "
        << "\"h\": " << srcSize.h << " },\n"
-       << "    \"duration\": " << sample.sprite()->frameDuration(sample.frame()) << "\n"
+       << "    \"duration\": " << sample.sprite()->frameDuration(sample.frame()) << ",\n"
+       << "    \"loopable\": " << (sample.isLoopable() ? "true" : "false") << "\n"
        << "   }";
 
     if (++it != samples.end())
@@ -1351,6 +1354,7 @@ void DocExporter::createDataFile(const Samples& samples,
         os << "\n   { \"name\": \"" << escape_for_json(tag->name()) << "\","
            << " \"from\": " << (tag->fromFrame()+delta.first) << ","
            << " \"to\": " << (tag->toFrame()+delta.second) << ","
+           << " \"loop\": " << (tag->isLoop() ? "true" : "false") << ","
            << " \"direction\": \"" << escape_for_json(convert_anidir_to_string(tag->aniDir())) << "\" }";
       }
     }

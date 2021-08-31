@@ -20,6 +20,9 @@
     <label text="@.ani_dir" />
     <combobox id="anidir" />
 
+    <label text="Loop Animation" />
+    <check id="loop" text="" tooltip="Check whether the tag will be a loop or not" />
+
     <separator horizontal="true" cell_hspan="2" />
 
     <box horizontal="true" homogeneous="true" cell_hspan="2" cell_align="right">
