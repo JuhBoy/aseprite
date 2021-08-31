@@ -979,6 +979,10 @@ static void ase_file_write_tags_chunk(FILE* f,
     fputc(doc::rgba_getb(tag->color()), f);
     fputc(0, f);
 
+    uint8_t isLoop = tag->isLoop();
+    fputc(isLoop, f);
+    fputc(0, f);
+
     ase_file_write_string(f, tag->name());
   }
 }

@@ -192,6 +192,10 @@ bool AsepriteDecoder::decode()
             // Ignore
             break;
 
+          case ASE_FILE_CHUNK_TAGS_LEGACY:
+            readTagsChunkLegacy(&sprite->tags());
+            break;
+
           case ASE_FILE_CHUNK_TAGS:
             readTagsChunk(&sprite->tags());
             break;
@@ -833,7 +837,7 @@ doc::Mask* AsepriteDecoder::readMaskChunk()
   return mask;
 }
 
-void AsepriteDecoder::readTagsChunk(doc::Tags* tags)
+void AsepriteDecoder::readTagsChunkLegacy(doc::Tags* tags)
 {
   size_t ntags = read16();
 
@@ -864,6 +868,46 @@ void AsepriteDecoder::readTagsChunk(doc::Tags* tags)
     tag->setColor(doc::rgba(r, g, b, 255));
     tag->setName(name);
     tag->setAniDir((doc::AniDir)aniDir);
+    tag->setLoop(false);
+    tags->add(tag);
+  }
+}
+
+void AsepriteDecoder::readTagsChunk(doc::Tags* tags)
+{
+  size_t ntags = read16();
+
+  read32();                     // 8 reserved bytes
+  read32();
+
+  for (size_t c=0; c<ntags; ++c) {
+    doc::frame_t from = read16();
+    doc::frame_t to = read16();
+    int aniDir = read8();
+    if (aniDir != int(doc::AniDir::FORWARD) &&
+        aniDir != int(doc::AniDir::REVERSE) &&
+        aniDir != int(doc::AniDir::PING_PONG)) {
+      aniDir = int(doc::AniDir::FORWARD);
+    }
+
+    read32();                     // 8 reserved bytes
+    read32();
+
+    int r = read8();
+    int g = read8();
+    int b = read8();
+    read8();                     // Skip
+
+    uint8_t isLoop = read8();
+    read8();                     // Skip
+
+    std::string name = readString();
+
+    auto tag = new doc::Tag(from, to);
+    tag->setColor(doc::rgba(r, g, b, 255));
+    tag->setName(name);
+    tag->setAniDir((doc::AniDir)aniDir);
+    tag->setLoop(isLoop == 1);
     tags->add(tag);
   }
 }
