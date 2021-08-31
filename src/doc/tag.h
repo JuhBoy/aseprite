@@ -14,6 +14,7 @@
 #include "doc/color.h"
 #include "doc/frame.h"
 #include "doc/object.h"
+#include "doc/animation_anchor.h"
 
 #include <string>
 
@@ -34,12 +35,14 @@ namespace doc {
     color_t color() const { return m_color; }
     AniDir aniDir() const { return m_aniDir; }
     bool isLoop() const {return m_loop; }
+    AnimationAnchor anchor() const { return m_anchor; }
 
     void setFrameRange(frame_t from, frame_t to);
     void setName(const std::string& name);
     void setColor(color_t color);
     void setAniDir(AniDir aniDir);
     void setLoop(bool value);
+    void setAnchor(const AnimationAnchor& anchor);
 
     void setOwner(Tags* owner);
 
@@ -50,6 +53,7 @@ namespace doc {
     std::string m_name;
     AniDir m_aniDir;
     bool m_loop;
+    AnimationAnchor m_anchor;
 
     // Disable operator=
     Tag& operator=(Tag&);

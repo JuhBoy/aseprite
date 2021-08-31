@@ -24,6 +24,7 @@
 #include "fixmath/fixmath.h"
 #include "fmt/format.h"
 #include "zlib.h"
+#include "../doc/animation_anchor.h"
 
 #include <cstdio>
 
@@ -901,6 +902,11 @@ void AsepriteDecoder::readTagsChunk(doc::Tags* tags)
     uint8_t isLoop = read8();
     read8();                     // Skip
 
+    int anchorX = read16();
+    int anchorY = read16();
+    doc::AnimationAnchor anchor(anchorX, anchorY);
+    read8();
+
     std::string name = readString();
 
     auto tag = new doc::Tag(from, to);
@@ -908,6 +914,7 @@ void AsepriteDecoder::readTagsChunk(doc::Tags* tags)
     tag->setName(name);
     tag->setAniDir((doc::AniDir)aniDir);
     tag->setLoop(isLoop == 1);
+    tag->setAnchor(anchor);
     tags->add(tag);
   }
 }

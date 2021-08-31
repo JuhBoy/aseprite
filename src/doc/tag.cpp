@@ -25,6 +25,7 @@ Tag::Tag(frame_t from, frame_t to)
   , m_name("Tag")
   , m_aniDir(AniDir::FORWARD)
   , m_loop(false)
+  , m_anchor(0, 0)
 {
 }
 
@@ -37,6 +38,7 @@ Tag::Tag(const Tag& other)
   , m_name(other.m_name)
   , m_aniDir(other.m_aniDir)
   , m_loop(other.m_loop)
+  , m_anchor(other.m_anchor.getX(), other.m_anchor.getY())
 {
 }
 
@@ -84,6 +86,11 @@ void Tag::setAniDir(AniDir aniDir)
 
 void Tag::setLoop(bool value) {
     m_loop = value;
+}
+
+void Tag::setAnchor(const AnimationAnchor& anchor) {
+  m_anchor.setX(anchor.getX());
+  m_anchor.setY(anchor.getY());
 }
 
 } // namespace doc

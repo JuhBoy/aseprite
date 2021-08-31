@@ -67,7 +67,8 @@ add_library(doc-lib
   tag.cpp
   tag_io.cpp
   tags.cpp
-  user_data_io.cpp)
+  user_data_io.cpp
+  animation_anchor.cpp)
 
 target_link_libraries(doc-lib
   laf-gfx

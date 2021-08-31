@@ -983,6 +983,12 @@ static void ase_file_write_tags_chunk(FILE* f,
     fputc(isLoop, f);
     fputc(0, f);
 
+    int anchorX = tag->anchor().getX();
+    int anchorY = tag->anchor().getY();
+    fputw(anchorX, f);
+    fputw(anchorY, f);
+    fputc(0, f);
+
     ase_file_write_string(f, tag->name());
   }
 }

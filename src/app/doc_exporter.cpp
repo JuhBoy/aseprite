@@ -1351,10 +1351,14 @@ void DocExporter::createDataFile(const Samples& samples,
         if (!m_tagDelta.empty())
           delta = m_tagDelta[tag->id()];
 
+        float anchorX = tag->anchor().getNormalizedX(sprite->width());
+        float anchorY = tag->anchor().getNormalizedY(sprite->height());
+
         os << "\n   { \"name\": \"" << escape_for_json(tag->name()) << "\","
            << " \"from\": " << (tag->fromFrame()+delta.first) << ","
            << " \"to\": " << (tag->toFrame()+delta.second) << ","
            << " \"loop\": " << (tag->isLoop() ? "true" : "false") << ","
+           << " \"anchor\": { " << "\"x\": " << anchorX << "," << " \"y\": " << anchorY << " },"
            << " \"direction\": \"" << escape_for_json(convert_anidir_to_string(tag->aniDir())) << "\" }";
       }
     }

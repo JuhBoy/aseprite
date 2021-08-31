@@ -25,6 +25,7 @@
 #include "doc/anidir.h"
 #include "doc/sprite.h"
 #include "doc/tag.h"
+#include "app/cmd/set_tag_animation_anchor.h"
 
 namespace app {
 
@@ -113,6 +114,13 @@ void FrameTagPropertiesCommand::onExecute(Context* context)
   bool isLoop = window.loopValue();
   if (tag->isLoop() != isLoop) {
       tx(new cmd::SetTagLoop(tag, isLoop));
+  }
+
+  int xValue = window.anchorXValue();
+  int yValue = window.anchorYValue();
+  if (xValue != tag->anchor().getX() || yValue != tag->anchor().getY()) {
+    AnimationAnchor anchor(xValue, yValue);
+    tx(new cmd::SetTagAnimationAnchor(tag, anchor));
   }
 
   tx.commit();

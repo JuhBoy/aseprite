@@ -65,12 +65,15 @@ void NewFrameTagCommand::onExecute(Context* context)
   if (!window.show())
     return;
 
+  AnimationAnchor anchor(window.anchorXValue(), window.anchorYValue());
+
   window.rangeValue(from, to);
   tag->setFrameRange(from, to);
   tag->setName(window.nameValue());
   tag->setColor(window.colorValue());
   tag->setAniDir(window.aniDirValue());
   tag->setLoop(window.loopValue());
+  tag->setAnchor(anchor);
 
   {
     ContextWriter writer(reader);

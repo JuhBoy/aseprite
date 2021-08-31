@@ -25,6 +25,7 @@ namespace doc {
     Sprite,
     Document,
     Tag,
+    AnimationAnchor,
     Slice,
   };
 

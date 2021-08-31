@@ -33,6 +33,8 @@ namespace app {
     doc::color_t colorValue();
     doc::AniDir aniDirValue();
     bool loopValue();
+    int anchorXValue();
+    int anchorYValue();
 
   private:
     const doc::Sprite* m_sprite;
