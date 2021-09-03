@@ -7,7 +7,7 @@
 #include "ver/info.h"
 #include "generated_version.h"  /* It defines the VERSION macro */
 
-#define PACKAGE                 "Aseprite"
+#define PACKAGE                 "Aseprite | Square One Edition"
 #define COPYRIGHT               "Copyright (C) 2001-2020 Igara Studio S.A."
 
 #ifdef CUSTOM_WEBSITE_URL
